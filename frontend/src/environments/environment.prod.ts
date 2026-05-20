@@ -2,5 +2,5 @@
 // REPLACE 'https://camangyan-auth-api.onrender.com' with your actual remote API deployment URL
 export const environment = {
     production: true,
-    apiUrl: 'https://ipt-2026-backend.onrender.com'
+    apiUrl: 'https://ipt-2026-backend-2alv.onrender.com'
 };
