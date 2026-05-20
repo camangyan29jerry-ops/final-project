@@ -2,12 +2,12 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import path from 'path';
 import errorHandler from './_middleware/error-handler';
 import accountsController from './accounts/accounts.controller';
 import swaggerDocs from './_helpers/swagger';
 
 const app = express();
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -30,6 +30,12 @@ app.use('/accounts', accountsController);
 
 // swagger docs route
 app.use('/api-docs', swaggerDocs);
+
+// serve angular frontend
+app.use(express.static(path.join(__dirname, '../../frontend/dist/frontend')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../frontend/dist/frontend/index.html'));
+});
 
 // global error handler
 app.use(errorHandler);
