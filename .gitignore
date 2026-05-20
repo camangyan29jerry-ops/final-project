@@ -1,0 +1,22 @@
+# Node modules
+node_modules/
+**/node_modules/
+
+# Angular cache and build output
+.angular/
+**/dist/
+
+# Credentials and secrets
+*.env
+.env
+**/.env
+**/email_logs.txt
+
+# Log files and reports
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+*.pdf
+**/images_lab6/
+**/images/

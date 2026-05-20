@@ -1,0 +1,10 @@
+node_modules/
+dist/
+*.env
+.env
+doc_lab5.html
+generate_report.py
+images/
+*.pdf
+email_logs.txt
+
