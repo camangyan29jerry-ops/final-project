@@ -32,6 +32,8 @@ app.use('/accounts', accountsController);
 app.use('/api-docs', swaggerDocs);
 
 // serve angular frontend
+console.log('Static path:', path.join(__dirname, '../../frontend/dist/ipt-2026-frontend'));
+console.log('Index path:', path.join(__dirname, '../../frontend/dist/ipt-2026-frontend/index.html'));
 app.use(express.static(path.join(__dirname, '../../frontend/dist/ipt-2026-frontend')));
 TargetContent="app.get('*', (req, res) => => {\n  res.sendFile(path.join(__dirname, '../../frontend/dist/ipt-2026-frontend/index.html'));\n});",
   ReplacementContent="app.get('*', (req, res) => {\n  res.sendFile(path.join(__dirname, '../../frontend/dist/ipt-2026-frontend/index.html'));\n});"
