@@ -6,7 +6,7 @@ services:
     startCommand: cd backend && npm start
     envVars:
       - key: CORS_ORIGIN
-        value: "https://your-frontend.onrender.com"  # put your actual frontend URL
+        value: "https://final-project-frontend-3xot.onrender.com"  # put your actual frontend URL
 
   - type: static
     name: final-project-frontend
