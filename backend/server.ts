@@ -32,9 +32,9 @@ app.use('/accounts', accountsController);
 app.use('/api-docs', swaggerDocs);
 
 // serve angular frontend
-app.use(express.static(path.join(__dirname, '../../frontend/dist/angular-21-boilerplate')));
+app.use(express.static(path.join(__dirname, '../../frontend/dist/ipt-2026-frontend')));
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../frontend/dist/angular-21-boilerplate/index.html'));
+  res.sendFile(path.join(__dirname, '../../frontend/dist/ipt-2026-frontend/index.html'));
 });
 
 // global error handler
