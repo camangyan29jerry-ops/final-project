@@ -1,7 +1,7 @@
 {
   "scripts": {
     "build": "npm run build:frontend && npm run build:backend",
-    "build:frontend": "cd frontend && npm install --include=dev && npm run build",
+    "build:frontend": "cd frontend && npm install --include=dev && npx ng build --configuration production",
     "build:backend": "cd backend && npm install --include=dev && npm run build",
     "start": "cd backend && npm start"
   }
