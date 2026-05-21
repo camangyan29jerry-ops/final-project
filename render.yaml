@@ -1,9 +1,18 @@
 services:
   - type: web
-    name: final-project
+    name: final-project-backend
     env: node
-    buildCommand: npm run build
-    startCommand: npm start
+    buildCommand: cd backend && npm install --include=dev && npm run build
+    startCommand: cd backend && npm start
     envVars:
       - key: CORS_ORIGIN
-        value: "*"
+        value: "https://your-frontend.onrender.com"  # put your actual frontend URL
+
+  - type: static
+    name: final-project-frontend
+    buildCommand: cd frontend && npm install --include=dev && npx ng build --configuration production
+    staticPublishPath: frontend/dist/ipt-2026-frontend
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
