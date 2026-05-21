@@ -65,16 +65,24 @@ async function revokeToken({ token, ipAddress }: any) {
 }
 
 async function register(params: any, origin: any) {
-  if (await db.Account.findOne({ where: { email: params.email } })) {
-    return await sendAlreadyRegisteredEmail(params.email, origin);
-  }
-  const account = new db.Account(params);
-  const isFirstAccount = (await db.Account.count()) === 0;
-  account.role = isFirstAccount ? Role.Admin : Role.User;
-  account.verificationToken = randomTokenString();
-  account.passwordHash = await hash(params.password);
-  await account.save();
-  await sendVerificationEmail(account, origin);
+    if (await db.Account.findOne({ where: { email: params.email } })) {
+        await sendAlreadyRegisteredEmail(params.email, origin);
+        throw 'Email "' + params.email + '" is already registered';  // ← add this
+    }
+
+    const account = new db.Account(params);
+    const isFirstAccount = (await db.Account.count()) === 0;
+    account.role = isFirstAccount ? Role.Admin : Role.User;
+    account.verificationToken = randomTokenString();
+    account.passwordHash = await hash(params.password);
+    await account.save();
+
+    // wrap email in try/catch so a mail failure doesn't kill registration
+    try {
+        await sendVerificationEmail(account, origin);
+    } catch (err) {
+        console.error('Failed to send verification email:', err);
+    }
 }
 
 async function verifyEmail({ token }: any) {
@@ -86,12 +94,12 @@ async function verifyEmail({ token }: any) {
 }
 
 async function forgotPassword({ email }: any, origin: any) {
-  const account = await db.Account.findOne({ where: { email } });
-  if (!account) return;
-  account.resetToken = randomTokenString();
-  account.resetTokenExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 1 day
-  await account.save();
-  await sendPasswordResetEmail(account, origin);
+    const account = await db.Account.findOne({ where: { email } });
+    if (!account) throw 'Email not found';  // ← throw instead of silent return
+    account.resetToken = randomTokenString();
+    account.resetTokenExpires = new Date(Date.now() + 24 * 60 * 60 * 1000);
+    await account.save();
+    await sendPasswordResetEmail(account, origin);
 }
 
 async function validateResetToken({ token }: any) {
