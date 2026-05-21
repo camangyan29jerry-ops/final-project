@@ -1,9 +1,17 @@
-﻿<h3 class="card-header">Verify Email</h3>
-<div class="card-body">
-    <div *ngIf="emailStatus == EmailStatus.Verifying">
-        Verifying...
+<div class="auth-card" style="text-align: center;">
+  <div class="auth-brand">
+    <div class="auth-icon">
+      <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
     </div>
-    <div *ngIf="emailStatus == EmailStatus.Failed">
-        Verification failed, you can also verify your account using the <a routerLink="forgot-password">forgot password</a> page.
-    </div>
+    <h2>Verify Email</h2>
+  </div>
+  <div *ngIf="emailStatus == EmailStatus.Verifying" class="token-checking">
+    <div class="token-spinner"></div>
+    <p style="color: var(--text-secondary); font-size: 0.9rem;">Verifying your email...</p>
+  </div>
+  <div *ngIf="emailStatus == EmailStatus.Failed" class="token-invalid">
+    <div style="font-size: 2.5rem; margin-bottom: 12px;">⚠️</div>
+    <p>Verification failed. You can also verify your account using the forgot password page.</p>
+    <a routerLink="forgot-password" class="auth-btn" style="display:block; text-align:center; text-decoration:none; margin-top:16px;">Forgot Password</a>
+  </div>
 </div>

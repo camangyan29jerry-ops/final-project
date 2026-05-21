@@ -1,11 +1,29 @@
-<div class="app-container" [ngClass]="{ 'bg-light': account, 'auth-layout': !account }">
-    <!-- main nav -->
-    <nav class="navbar navbar-expand navbar-dark bg-dark px-3" *ngIf="account">
-        <div class="navbar-nav">
-            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-item nav-link">Home</a>
-            <a routerLink="/profile" routerLinkActive="active" class="nav-item nav-link">Profile</a>
-            <a *ngIf="account.role === Role.Admin" routerLink="/admin" routerLinkActive="active" class="nav-item nav-link">Admin</a>
-            <button (click)="logout()" class="btn btn-link nav-item nav-link">Logout</button>
+<div class="app-container" [ngClass]="{ 'auth-layout': !account }">
+    <!-- Top Nav (logged-in users) -->
+    <nav class="app-nav" *ngIf="account">
+        <div class="nav-brand">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            IPT-2026
+        </div>
+        <div class="nav-links">
+            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                Home
+            </a>
+            <a routerLink="/profile" routerLinkActive="active">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Profile
+            </a>
+            <a *ngIf="account.role === Role.Admin" routerLink="/admin" routerLinkActive="active">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                Admin
+            </a>
+        </div>
+        <div class="nav-right">
+            <div class="avatar-badge">{{account.firstName?.charAt(0)}}{{account.lastName?.charAt(0)}}</div>
+            <button (click)="logout()" class="btn-logout">Sign out</button>
         </div>
     </nav>
 
