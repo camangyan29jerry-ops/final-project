@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -12,7 +12,6 @@ export class UpdateComponent implements OnInit {
     form!: FormGroup;
     submitting = false;
     submitted = false;
-    deleting = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -64,14 +63,5 @@ export class UpdateComponent implements OnInit {
             });
     }
 
-    onDelete() {
-        if (confirm('Are you sure?')) {
-            this.deleting = true;
-            this.accountService.delete(this.account.id!)
-                .pipe(first())
-                .subscribe(() => {
-                    this.alertService.success('Account deleted successfully', { keepAfterRouteChange: true });
-                });
-        }
-    }
+
 }

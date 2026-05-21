@@ -28,7 +28,7 @@
                     </td>
                     <td style="white-space: nowrap; text-align: right;">
                         <a routerLink="edit/{{account.id}}" class="btn-sm btn-edit me-1">Edit</a>
-                        <button (click)="deleteAccount(account.id)" class="btn-sm btn-del" [disabled]="account.isDeleting">
+                        <button (click)="deleteAccount(account.id)" class="btn-sm btn-del" [disabled]="account.isDeleting || account.id === currentAccountId">
                             <span *ngIf="account.isDeleting" class="spinner-border spinner-border-sm"></span>
                             <span *ngIf="!account.isDeleting">Delete</span>
                         </button>

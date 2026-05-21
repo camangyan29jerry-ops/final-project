@@ -66,8 +66,12 @@ async function revokeToken({ token, ipAddress }: any) {
 
 async function register(params: any, origin: any) {
     if (await db.Account.findOne({ where: { email: params.email } })) {
-        await sendAlreadyRegisteredEmail(params.email, origin);
-        throw 'Email "' + params.email + '" is already registered';  // ← add this
+        try {
+            await sendAlreadyRegisteredEmail(params.email, origin);
+        } catch (err) {
+            console.error('Failed to send already registered email:', err);
+        }
+        throw 'Email "' + params.email + '" is already registered';
     }
 
     const account = new db.Account(params);

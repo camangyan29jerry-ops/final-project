@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 
 import { AccountService } from '@app/_services';
@@ -8,6 +8,10 @@ export class ListComponent implements OnInit {
     accounts?: any[];
 
     constructor(private accountService: AccountService) { }
+
+    get currentAccountId() {
+        return this.accountService.accountValue?.id;
+    }
 
     ngOnInit() {
         this.accountService.getAll()

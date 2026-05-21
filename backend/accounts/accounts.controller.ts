@@ -211,7 +211,12 @@ function update(req: any, res: any, next: any) {
 }
 
 function _delete(req: any, res: any, next: any) {
-  if (Number(req.params.id) !== req.user.id && req.user.role !== Role.Admin) {
+  // Prevent self-termination
+  if (Number(req.params.id) === req.user.id) {
+    return res.status(400).json({ message: 'Accounts cannot be self-terminated' });
+  }
+
+  if (req.user.role !== Role.Admin) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
 

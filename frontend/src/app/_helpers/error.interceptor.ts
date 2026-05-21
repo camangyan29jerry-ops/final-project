@@ -16,7 +16,10 @@ export class ErrorInterceptor implements HttpInterceptor {
                 this.accountService.logout();
             }
 
-            const error = (err && err.error && err.error.message) || err.statusText;
+            let error = (err && err.error && err.error.message) || err.message || err.statusText;
+            if (!error || error === 'OK') {
+                error = 'An internal server error occurred. Please try again later.';
+            }
             console.error(err);
             return throwError(() => error);
         }))
