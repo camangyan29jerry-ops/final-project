@@ -95,11 +95,17 @@ async function verifyEmail({ token }: any) {
 
 async function forgotPassword({ email }: any, origin: any) {
     const account = await db.Account.findOne({ where: { email } });
-    if (!account) throw 'Email not found';  // ← throw instead of silent return
+    if (!account) throw 'Email not found';  // ← already discussed
+
     account.resetToken = randomTokenString();
     account.resetTokenExpires = new Date(Date.now() + 24 * 60 * 60 * 1000);
     await account.save();
-    await sendPasswordResetEmail(account, origin);
+
+    try {
+        await sendPasswordResetEmail(account, origin);
+    } catch (err) {
+        console.error('Failed to send reset email:', err);
+    }
 }
 
 async function validateResetToken({ token }: any) {
