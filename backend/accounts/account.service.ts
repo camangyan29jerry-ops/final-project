@@ -79,7 +79,7 @@ async function register(params: any, origin: any) {
     account.role = isFirstAccount ? Role.Admin : Role.User;
     account.verificationToken = randomTokenString();
     account.passwordHash = await hash(params.password);
-    account.verified = Date.now();
+    account.verified = null;
     await account.save();
 
     // wrap email in try/catch so a mail failure doesn't kill registration
